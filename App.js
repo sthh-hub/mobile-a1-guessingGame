@@ -4,17 +4,25 @@ import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import Header from './components/Header';
 import Start from './screens/Start';
+import Confirm from './screens/Confirm';
 // import Game from './screens/Game';
-// import Confirm from './screens/Confirm';
 
 export default function App() {
   const [receivedName, setReceivedName] = useState('');
-  // const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [receivedEmail, setReceivedEmail] = useState('');
+  const [confirmModalVisible, setConfirmModalVisible] = useState(true);
   
 
   function handleNameInput(name) {
     setReceivedName(name);
-    // setConfirmModalVisible(true);
+  }
+
+  function handleEmailInput(email) {
+    setReceivedEmail(email);
+  }
+
+  function handleStart(isModalVisible) {
+    setConfirmModalVisible(isModalVisible);
   }
 
   return (
@@ -27,7 +35,8 @@ export default function App() {
       <Header />
       </View>
       <View style={styles.contentContainer}>
-      <Start nameHandler={handleNameInput} />
+      <Start nameHandler={handleNameInput} emailHandler={handleEmailInput} startHandler={handleStart} />
+      <Confirm isModalVisible={confirmModalVisible} name={receivedName} email={receivedEmail} />
       </View>
       <View style={styles.bottomContainer}>
       </View>
