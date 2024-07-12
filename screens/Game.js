@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
+import Colors from '../constants/colors';
 
 export default function Game({ restartHandler }) {
     const [target, setTarget] = useState(0);
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
     gamePanelContainer: {
         width: 280,
         padding: 30,
-        backgroundColor: '#C0E4E4',
+        backgroundColor: Colors.boxBackground,
         borderRadius: 15,
         shadowColor: 'black',
         shadowOffset: { width: 5, height: 10 },
@@ -221,13 +222,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     topMsgTextStyle: {
-        color: '#483d8b',
+        color: Colors.textPrimary,
         fontSize: 18,
         textAlign: 'center',
         fontWeight: 'bold',
     },
     hintTextStyle: {
-        color: '#ff7f50',
+        color: Colors.hintColor,
         textAlign: 'center',
         fontWeight: 'bold',
     },
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderButton: 15,
         borderBottomWidth: 1,
-        borderColor: 'grey',
+        borderColor: Colors.inputBorder,
         height: 50,
         width: 80,
     },
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#1e90ff',
+        color: Colors.textSecondary,
     },
     bottomContainer: {
         alignItems: 'center',

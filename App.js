@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Start from './screens/Start';
 import Confirm from './screens/Confirm';
 import Game from './screens/Game';
+import Colors from './constants/colors';
 
 export default function App() {
   const [receivedName, setReceivedName] = useState('');

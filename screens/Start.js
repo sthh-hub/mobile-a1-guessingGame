@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Colors from '../constants/colors';
 
 export default function Start({ nameHandler, emailHandler, startHandler, resetFormHandler }) {
     const [name, setName] = useState('');
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
         width: 250,
         padding: 30,
         margin: 20,
-        backgroundColor: '#C0E4E4',
+        backgroundColor: Colors.boxBackground,
         borderRadius: 15,
         shadowColor: 'black',
         shadowOffset: { width: 5, height: 10 },
@@ -122,15 +123,15 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderButton: 15,
         borderBottomWidth: 1,
-        borderColor: 'grey',
+        borderColor: Colors.inputBorder,
     },
     inputStyle: {
-        color: 'DarkGrey',
+        color: Colors.inputText,
         marginBottom: 2,
         marginLeft: 2,
     },
     errorMsgStyle: {
-        color: '#F00903',
+        color: Colors.errorRed,
         marginLeft: 2,
         marginBottom: 20,
     },

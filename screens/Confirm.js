@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, Button, StyleSheet } from 'react-native';
+import Colors from '../constants/colors';
 
 export default function Confirm({ isModalVisible, name, email, goBackHandler, continueHandler }) {
 
@@ -39,7 +40,7 @@ export default function Confirm({ isModalVisible, name, email, goBackHandler, co
 const styles = StyleSheet.create({
     modalBackground: {
         flex: 1,
-        backgroundColor: 'rgba(50, 50, 50, 0.75)',
+        backgroundColor: Colors.modalBackground,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
         width: 300,
         padding: 30,
         margin: 20,
-        backgroundColor: '#C0E4E4',
+        backgroundColor: Colors.boxBackground,
         borderRadius: 15,
         shadowColor: 'black',
         shadowOffset: { width: 5, height: 10 },
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textStyle: {
-        color: 'DarkGrey',
+        color: Colors.inputText,
         fontSize: 15,
     },
     buttonContainer: {

@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import React from "react";
+import Colors from "../constants/colors";
 
 const Header = ( {children} ) => {
     return (
@@ -14,7 +15,7 @@ export default Header;
 
 const styles = StyleSheet.create({
     headerStyle: {
-        color: '#C00404',
+        color: Colors.buttonRed,
         fontWeight: 'bold',
         fontSize: 23,
     },
