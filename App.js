@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import DismissKeyboard from './components/DismissKeyboard';
 import Header from './components/Header';
 import Start from './screens/Start';
 import Confirm from './screens/Confirm';
@@ -76,17 +77,20 @@ export default function App() {
       style={styles.container}
     >
       <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <Header />
-        </View>
-        <View style={styles.contentContainer}>
-          {renderPage(currentPage)}
-        </View>
-        <View style={styles.bottomContainer}>
-        </View>
+        <DismissKeyboard>
+          <View style={styles.topContainer}>
+            <Header />
+          </View>
+          <View style={styles.contentContainer}>
+            {renderPage(currentPage)}
+          </View>
+          <View style={styles.bottomContainer}>
+          </View>
+        </DismissKeyboard>
         <StatusBar style="auto" />
       </View>
     </LinearGradient>
+
   );
 }
 

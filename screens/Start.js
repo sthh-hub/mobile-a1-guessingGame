@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
+import { StyleSheet, View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import commonStyles from '../styles/styles';
 
@@ -75,7 +75,7 @@ export default function Start({ nameHandler, emailHandler, startHandler }) {
                         placeholder="Enter your name..."
                         onBlur={() => validateName(name)}
                         autoCapitalize={true}
-                        autoFocus={true}
+                        autoFocus={false}
                     >
                     </ TextInput></View>
                 <Text style={styles.errorMsgStyle}>{nameErrorMsg}</Text>
@@ -92,8 +92,10 @@ export default function Start({ nameHandler, emailHandler, startHandler }) {
                     </ TextInput></View>
                 <Text style={styles.errorMsgStyle}>{mailErrorMsg}</Text>
                 <View style={styles.checkboxContainer}>
-                    <BouncyCheckbox marginRight={-7} unFillColor="#FFFFFF" isChecked={isChecked} onPress={toggleCheckbox} />
-                    <Text style={{ marginTop: 3 }}>I'm not a robot.</Text>
+                    <TouchableOpacity style={styles.checkboxContainer} onPress={toggleCheckbox}>
+                        <BouncyCheckbox marginRight={-7} unFillColor="#FFFFFF" isChecked={isChecked} onPress={toggleCheckbox} />
+                        <Text style={{ marginTop: 3 }}>I'm not a robot.</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
                     <View style={styles.buttonStyle}><Button title="Reset" onPress={resetForm} color="#C00404" /></View>

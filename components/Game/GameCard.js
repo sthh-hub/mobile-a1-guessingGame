@@ -17,7 +17,7 @@ const GameCard = ({ guess, setGuess, hintMsg, attempt, timer, handleHint, handle
                         onChangeText={setGuess}
                         placeholder="?"
                         autoCapitalize={false}
-                        autoFocus={true}
+                        autoFocus={false}
                     />
                 </View>
                 <Text style={styles.hintTextStyle}>{hintMsg}</Text>
