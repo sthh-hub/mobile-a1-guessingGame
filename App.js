@@ -1,16 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, ScrollView, FlatList } from 'react-native';
 import React, { useState } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 import Start from './screens/Start';
-import Game from './screens/Game';
-import Confirm from './screens/Confirm';
-import Header from "./components/Header";
-import Input from "./components/Input";
-import GoalItem from "./Components/GoalItem";
+// import Game from './screens/Game';
+// import Confirm from './screens/Confirm';
+import Header from './components/Header';
 
 export default function App() {
 
   return (
+    <LinearGradient
+    colors={['#FFD8C1', '#FFB6A1', '#FF7E79']}
+    style={styles.container}
+  >
+    <View style={styles.container}>
+      <View style={styles.topContainer}>
+      <Header></Header>
+      </View>
+      <View style={styles.contentContainer}>
+      <Start></Start>
+      </View>
+      <View style={styles.bottomContainer}>
+      </View>
+      <StatusBar style="auto" />
+    </View>
+    </LinearGradient>
   );
 }
 
@@ -20,6 +35,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'gradient',
+  },
+  topContainer: {
+    flex: 1,
+    paddingTop: '20%',
+    marginTop: '10%',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  bottomContainer: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   textContainer: {
     backgroundColor: '#ffff00',
@@ -38,15 +70,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 5,
   },
-  topContainer: {
-    flex: 1,
-    marginTop: 70,
-    alignItems: 'center'
-  },
-  bottomContainer: {
-    flex: 5,
-    backgroundColor: 'lightyellow',
-    width: '100%',
-    alignItems: 'center'
-  }
 });
