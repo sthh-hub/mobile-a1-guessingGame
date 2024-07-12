@@ -8,6 +8,7 @@ export default function Game() {
     const [timer, setTimer] = useState(60);
     const [hintMsg, setHintMsg] = useState('');
     const [losingMsg, setLosingMsg] = useState('');
+    const [winningMsg, setWinningMsg] = useState('');
     const [currentCard, setCurrentCard] = useState('gameOver');
 
     useEffect(() => {
@@ -45,6 +46,7 @@ export default function Game() {
         }
         if (guessNumber === target) {
             // if the guess is correct
+            setWinningMsg(`Attempts used: ${4 - attempt + 1}`);
             setCurrentCard('winning');
             resetSystemSettings();
         } else {
@@ -130,7 +132,7 @@ export default function Game() {
             <View>
                 <View style={styles.topContainer}>
                     <Text>You guessed correct!</Text>
-                    <Text>Attempts used: {attempt}</Text>
+                    <Text>{winningMsg}</Text>
                 </View>
                 <View style={styles.bottomContainer}>
                     <View style={styles.buttonStyle}><Button title="New Game" onPress={handleResetGame} /></View>
