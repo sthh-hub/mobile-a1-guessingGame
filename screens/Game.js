@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
 export default function Game() {
     const [target, setTarget] = useState(0);
@@ -8,22 +8,38 @@ export default function Game() {
     const [timer, setTimer] = useState(60);
     const [hintMsg, setHintMsg] = useState('');
     const [losingMsg, setLosingMsg] = useState('');
-    const [currentCard, setCurrentCard] = useState('winning');
+    const [currentCard, setCurrentCard] = useState('game');
 
-    const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+    useEffect(() => {
+        randomNumber = generateRandomNumber();
+        setTarget(randomNumber);
+    }, []);
 
-    const checkNumber = (guess) => {
-        guessNumber = parseInt(guess);
+    const generateRandomNumber = () => {
+        return Math.floor(Math.random() * 100) + 1;
+    }
+
+    const resetSystemSettings = () => {
+        setGuess('');
+        setAttempt(4);
+        setTimer(60);
+        setHintMsg('');
+    };
+
+    const handleGuess = (guess) => {
+        guessNumber = parseInt(guess, 10);
+        if (isNaN(guessNumber) || guessNumber < 1 || guessNumber > 100) {
+            Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
+            return;
+        }
         if (guessNumber === target) {
-            alert('You win!');
-            setAttempt(4);
-            setTimer(60);
+            setCurrentCard('winning');
+            resetSystemSettings();
         } else {
             setAttempt(attempt - 1);
             if (attempt === 0) {
-                alert('You lose!');
-                setAttempt(4);
-                setTimer(60);
+                setCurrentCard('gameOver');
+                resetSystemSettings();
             }
         }
     };
@@ -34,35 +50,41 @@ export default function Game() {
                 <View style={styles.topContainer}>
                     <Text style={styles.topMsgTextStyle}>Guess a Number{"\n"}from 1 to 100</Text>
                 </View>
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.inputStyle}
-                        value={guess}
-                        onChangeText={setGuess}
-                        placeholder="?"
-                        onBlur={() => checkNumber(guess)}
-                        autoCapitalize={false}
-                        autoFocus={true}
-                    >
-                    </ TextInput>
-                </View>
-                <View style={styles.bottomContainer}>
+                <View style={styles.middleContainer}>
+                    <View style={styles.inputContainer}>
+                        <TextInput style={styles.inputStyle}
+                            value={guess}
+                            onChangeText={setGuess}
+                            placeholder="?"
+                            onBlur={() => handleGuess(guess)}
+                            autoCapitalize={false}
+                            autoFocus={true}
+                        >
+                        </ TextInput>
+                    </View>
                     <View style={styles.systemMsgContainer}>
                         <Text style={styles.systemMsgTextStyle}>Attempts left: {attempt}</Text>
                         <Text style={styles.systemMsgTextStyle}>Timer: {timer}</Text>
                     </View>
+                </View>
+                <View style={styles.bottomContainer}>
                     <View style={styles.buttonStyle}><Button title="Use a Hint" onPress={''} color="#ff7f50" /></View>
-                    <View style={styles.buttonStyle}><Button title="Submit Guess" onPress={''} disabled={isSubmitDisabled} /></View>
+                    <View style={styles.buttonStyle}><Button title="Submit Guess" onPress={''} /></View>
                 </View>
             </View>
         );
     };
 
-    const losingCard = () => {
+    const wrongGuessCard = () => {
         return (
             <View>
-                <Text>You did not guess correct!</Text>
-                <View style={styles.buttonStyle}><Button title="Try Again" onPress={''} /></View>
-                <View style={styles.buttonStyle}><Button title="End The Game" onPress={''} /></View>
+                <View style={styles.topContainer}>
+                    <Text>You did not guess correct!</Text>
+                </View>
+                <View style={styles.bottomContainer}>
+                    <View style={styles.buttonStyle}><Button title="Try Again" onPress={''} /></View>
+                    <View style={styles.buttonStyle}><Button title="End The Game" onPress={''} /></View>
+                </View>
             </View>
         );
     };
@@ -70,16 +92,20 @@ export default function Game() {
     const winningCard = () => {
         return (
             <View>
-                <Text>You guessed correct!</Text>
-                <Text>Attempts used: {attempt}</Text>
-                <View style={styles.buttonStyle}><Button title="New Game" onPress={''} /></View>
+                <View style={styles.topContainer}>
+                    <Text>You guessed correct!</Text>
+                    <Text>Attempts used: {attempt}</Text>
+                </View>
+                <View style={styles.bottomContainer}>
+                    <View style={styles.buttonStyle}><Button title="New Game" onPress={''} /></View>
+                </View>
             </View>
         );
     };
 
     const gameOverCard = () => {
         return (
-            <View>
+            <View style={styles.topContainer}>
                 <Text>The game is over!</Text>
                 <Text>sad face here</Text>
             </View>
@@ -90,8 +116,8 @@ export default function Game() {
         if (currentCard === 'game') {
             return gameCard();
         }
-        if (currentCard === 'losing') {
-            return losingCard();
+        if (currentCard === 'wrongGuess') {
+            return wrongGuessCard();
         }
         if (currentCard === 'winning') {
             return winningCard();
@@ -131,10 +157,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 10,
         elevation: 10,
-        alignItems: 'center',
     },
     topContainer: {
-        alignItems: 'center',
         flexDirection: 'column',
         marginBottom: 5,
     },
@@ -143,6 +167,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
         fontWeight: 'bold',
+    },
+    middleContainer: {
+        alignItems: 'center',
     },
     inputContainer: {
         justifyContent: 'center',
