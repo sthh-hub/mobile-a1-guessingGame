@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
 
 export default function Game({ restartHandler }) {
     const [target, setTarget] = useState(0);
@@ -100,7 +100,7 @@ export default function Game({ restartHandler }) {
         return (
             <View>
                 <View style={styles.topContainer}>
-                    <Text style={styles.topMsgTextStyle}>Guess a Number{"\n"}from 1 to 100</Text>
+                    <Text style={styles.topMsgTextStyle}>{target}Guess a Number{"\n"}from 1 to 100</Text>
                 </View>
                 <View style={styles.middleContainer}>
                     <View style={styles.inputContainer}>
@@ -147,7 +147,7 @@ export default function Game({ restartHandler }) {
                 <View style={styles.topContainer}>
                     <Text>You guessed correct!</Text>
                     <Text>{winningMsg}</Text>
-                    <Image source={{ uri: `https://picsum.photos/id/${guess}/100/100` }} style={styles.resultImage} />
+                    <Image style={styles.imageStyle} source={{ uri: `https://picsum.photos/id/${guess}/100/100` }} alt="winningImage" />
                 </View>
                 <View style={styles.bottomContainer}>
                     <View style={styles.buttonStyle}><Button title="New Game" onPress={handleNewGame} /></View>
@@ -160,7 +160,7 @@ export default function Game({ restartHandler }) {
         return (
             <View style={styles.topContainer}>
                 <Text>The game is over!</Text>
-                <Text>sad face here</Text>
+                <Image style={styles.imageStyle} source={require('../assets/gameOver.png')} alt="gameOverImage" />
                 <Text>{losingMsg}</Text>
             </View>
         );
