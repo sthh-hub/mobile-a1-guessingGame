@@ -21,25 +21,40 @@ export default function Game() {
 
     const resetSystemSettings = () => {
         setGuess('');
+        setHintMsg('');
         setAttempt(4);
         setTimer(60);
-        setHintMsg('');
+    };
+
+    const handleHint = () => {
+        const evenOrOdd = target % 2 === 0 ? 'Even' : 'Odd';
+        if (target > 50) {
+            setHintMsg(`${evenOrOdd} number & from 51 to 100`);
+        } else {
+            setHintMsg(`${evenOrOdd} number & from 1 to 50`);
+        }
     };
 
     const handleGuess = (guess) => {
         guessNumber = parseInt(guess, 10);
         if (isNaN(guessNumber) || guessNumber < 1 || guessNumber > 100) {
             Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
+            setGuess('');
             return;
         }
         if (guessNumber === target) {
+            // if the guess is correct
             setCurrentCard('winning');
             resetSystemSettings();
         } else {
+            // if the guess is wrong
             setAttempt(attempt - 1);
             if (attempt === 0) {
                 setCurrentCard('gameOver');
                 resetSystemSettings();
+            } else {
+                setCurrentCard('wrongGuess');
+                setGuess('');
             }
         }
     };
@@ -56,20 +71,20 @@ export default function Game() {
                             value={guess}
                             onChangeText={setGuess}
                             placeholder="?"
-                            onBlur={() => handleGuess(guess)}
                             autoCapitalize={false}
                             autoFocus={true}
                         >
                         </ TextInput>
                     </View>
+                    <Text style={styles.hintTextStyle}>{hintMsg}</Text>
                     <View style={styles.systemMsgContainer}>
                         <Text style={styles.systemMsgTextStyle}>Attempts left: {attempt}</Text>
                         <Text style={styles.systemMsgTextStyle}>Timer: {timer}</Text>
                     </View>
                 </View>
                 <View style={styles.bottomContainer}>
-                    <View style={styles.buttonStyle}><Button title="Use a Hint" onPress={''} color="#ff7f50" /></View>
-                    <View style={styles.buttonStyle}><Button title="Submit Guess" onPress={''} /></View>
+                    <View style={styles.buttonStyle}><Button title="Use a Hint" onPress={handleHint} color="#ff7f50" /></View>
+                    <View style={styles.buttonStyle}><Button title="Submit Guess" onPress={() => { handleGuess(guess); }} /></View>
                 </View>
             </View>
         );
@@ -167,6 +182,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
         fontWeight: 'bold',
+    },
+    hintTextStyle: {
+        color: '#ff7f50',
+        textAlign: 'center',
     },
     middleContainer: {
         alignItems: 'center',
