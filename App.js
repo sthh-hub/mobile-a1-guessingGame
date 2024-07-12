@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, Button, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import Header from './components/Header';
 import Start from './screens/Start';
 // import Game from './screens/Game';
 // import Confirm from './screens/Confirm';
-import Header from './components/Header';
 
 export default function App() {
 
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: '20%',
     marginTop: '10%',
+    paddingBottom: 30,
     alignItems: 'center',
   },
   contentContainer: {
