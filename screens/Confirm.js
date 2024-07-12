@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, Button, StyleSheet } from 'react-native';
-import Colors from '../constants/colors';
+import commonStyles from '../styles/styles';
 
 export default function Confirm({ isModalVisible, name, email, goBackHandler, continueHandler }) {
 
@@ -39,33 +39,20 @@ export default function Confirm({ isModalVisible, name, email, goBackHandler, co
 
 const styles = StyleSheet.create({
     modalBackground: {
-        flex: 1,
-        backgroundColor: Colors.modalBackground,
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...commonStyles.modalBackground,
     },
     modalContainer: {
-        width: 300,
-        padding: 30,
-        margin: 20,
-        backgroundColor: Colors.boxBackground,
-        borderRadius: 15,
-        shadowColor: 'black',
-        shadowOffset: { width: 5, height: 10 },
-        shadowOpacity: 0.3,
-        shadowRadius: 10,
-        elevation: 10,
+        ...commonStyles.modalContainer,
     },
     contentContainer: {
         justifyContent: 'center',
         alignItems: 'center',
     },
     textStyle: {
-        color: Colors.inputText,
-        fontSize: 15,
+        ...commonStyles.text,
     },
     buttonContainer: {
-        flexDirection: 'row',
+        ...commonStyles.buttonContainer,
         justifyContent: 'space-between',
         marginLeft: '10%',
         marginRight: '10%',

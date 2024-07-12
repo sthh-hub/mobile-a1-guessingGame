@@ -5,7 +5,7 @@ const colors = {
     buttonRed: '#C00404',
     hintColor: '#ff7f50',
     textPrimary: '#483d8b',
-    textSecondary: 'grey',
+    textSecondary: '#1e90ff',
     inputBorder: 'grey',
     modalBackground: 'rgba(50, 50, 50, 0.75)',
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
-import Colors from '../constants/colors';
+import colors from '../styles/colors';
+import commonStyles from '../styles/styles';
 
 export default function Game({ restartHandler }) {
     const [target, setTarget] = useState(0);
@@ -196,8 +197,7 @@ export default function Game({ restartHandler }) {
 
 const styles = StyleSheet.create({
     gameContainer: {
-        flex: 1,
-        justifyContent: 'center',
+        ...commonStyles.container,
     },
     restartButtonStyle: {
         flexDirection: 'row',
@@ -206,15 +206,8 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     gamePanelContainer: {
+        ...commonStyles.card,
         width: 280,
-        padding: 30,
-        backgroundColor: Colors.boxBackground,
-        borderRadius: 15,
-        shadowColor: 'black',
-        shadowOffset: { width: 5, height: 10 },
-        shadowOpacity: 0.3,
-        shadowRadius: 10,
-        elevation: 10,
     },
     topContainer: {
         flexDirection: 'column',
@@ -222,13 +215,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     topMsgTextStyle: {
-        color: Colors.textPrimary,
+        color: colors.textPrimary,
         fontSize: 18,
         textAlign: 'center',
         fontWeight: 'bold',
     },
     hintTextStyle: {
-        color: Colors.hintColor,
+        color: colors.hintColor,
         textAlign: 'center',
         fontWeight: 'bold',
     },
@@ -236,29 +229,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     inputContainer: {
+        ...commonStyles.inputContainer,
         justifyContent: 'center',
         marginTop: 20,
-        marginBottom: 20,
-        borderButton: 15,
-        borderBottomWidth: 1,
-        borderColor: Colors.inputBorder,
+        marginBottom: 15,
         height: 50,
         width: 80,
     },
     inputStyle: {
+        ...commonStyles.input,
         margin: 5,
         textAlign: 'center',
         fontSize: 30,
         fontWeight: 'bold',
-        color: Colors.textSecondary,
+        color: colors.textSecondary,
     },
     bottomContainer: {
         alignItems: 'center',
         flexDirection: 'column',
-        marginTop: 15,
-        marginBottom: 5,
+        marginBottom: 20,
     },
     systemMsgContainer: {
+        marginTop: 2,
         marginBottom: 20,
     },
     systemMsgTextStyle: {
@@ -266,6 +258,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     buttonStyle: {
+        ...commonStyles.button,
         margin: 5,
     },
     imageStyle: {

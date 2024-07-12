@@ -6,13 +6,13 @@ import Header from './components/Header';
 import Start from './screens/Start';
 import Confirm from './screens/Confirm';
 import Game from './screens/Game';
-import Colors from './constants/colors';
+import commonStyles from './styles/styles';
 
 export default function App() {
   const [receivedName, setReceivedName] = useState('');
   const [receivedEmail, setReceivedEmail] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-  const [currentPage, setCurrentPage] = useState('Start');
+  const [currentPage, setCurrentPage] = useState('Game');
 
   // --------handle callback from Start page--------
   function handleNameInput(name) {
@@ -92,10 +92,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    ...commonStyles.container,
     backgroundColor: 'gradient',
   },
   topContainer: {

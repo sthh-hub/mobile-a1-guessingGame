@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import Colors from '../constants/colors';
+import commonStyles from '../styles/styles';
 
 export default function Start({ nameHandler, emailHandler, startHandler, resetFormHandler }) {
     const [name, setName] = useState('');
@@ -103,50 +103,29 @@ export default function Start({ nameHandler, emailHandler, startHandler, resetFo
 
 const styles = StyleSheet.create({
     startContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        ...commonStyles.container,
     },
     loginContainer: {
+        ...commonStyles.card,
         width: 250,
-        padding: 30,
-        margin: 20,
-        backgroundColor: Colors.boxBackground,
-        borderRadius: 15,
-        shadowColor: 'black',
-        shadowOffset: { width: 5, height: 10 },
-        shadowOpacity: 0.3,
-        shadowRadius: 10,
-        elevation: 10,
     },
     inputContainer: {
-        marginTop: 10,
-        borderButton: 15,
-        borderBottomWidth: 1,
-        borderColor: Colors.inputBorder,
+        ...commonStyles.inputContainer,
     },
     inputStyle: {
-        color: Colors.inputText,
-        marginBottom: 2,
-        marginLeft: 2,
+        ...commonStyles.input,
     },
     errorMsgStyle: {
-        color: Colors.errorRed,
-        marginLeft: 2,
-        marginBottom: 20,
+        ...commonStyles.errorText,
     },
     checkboxContainer: {
         flexDirection: 'row',
-        justifyContent: 'left',
+        justifyContent: 'flex-start',
     },
     buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 10
+        ...commonStyles.buttonContainer,
     },
     buttonStyle: {
-        margin: 15,
+        ...commonStyles.button,
     },
 });
