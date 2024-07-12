@@ -5,15 +5,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Header from './components/Header';
 import Start from './screens/Start';
 import Confirm from './screens/Confirm';
-// import Game from './screens/Game';
+import Game from './screens/Game';
 
 export default function App() {
   const [receivedName, setReceivedName] = useState('');
   const [receivedEmail, setReceivedEmail] = useState('');
-  const [confirmModalVisible, setConfirmModalVisible] = useState(true);
-  const [currentPage, setCurrentPage] = useState('Start');
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState('Game');
 
-  // Callback from Start page
+  // --------handle callback from Start page--------
   function handleNameInput(name) {
     setReceivedName(name);
   }
@@ -27,17 +27,22 @@ export default function App() {
     setConfirmModalVisible(true);
   }
 
-  // Callback from Confirm page
+  // --------handle callback from Confirm page--------
   function hanldeGoBack() {
     setConfirmModalVisible(false);
   }
+
+  function handleContinue(gamePage) {
+    setCurrentPage(gamePage);
+  }
+
 
   function renderPage(currentPage) {
     if (currentPage === 'Start') {
       return (
         <View>
           <Start nameHandler={handleNameInput} emailHandler={handleEmailInput} startHandler={handleStart} />
-          <Confirm isModalVisible={confirmModalVisible} name={receivedName} email={receivedEmail} goBackHandler={hanldeGoBack} />
+          <Confirm isModalVisible={confirmModalVisible} name={receivedName} email={receivedEmail} goBackHandler={hanldeGoBack} continueHandler={handleContinue} />
         </View>
       );
     }

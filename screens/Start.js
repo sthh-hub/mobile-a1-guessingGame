@@ -70,7 +70,7 @@ export default function Start({ nameHandler, emailHandler, startHandler }) {
                         value={name}
                         onChangeText={setName}
                         placeholder="Enter your name..."
-                        onBlur={(valid) => validateName(name)}
+                        onBlur={() => validateName(name)}
                         autoCapitalize={true}
                         autoFocus={true}
                     >
@@ -82,7 +82,7 @@ export default function Start({ nameHandler, emailHandler, startHandler }) {
                         value={email}
                         onChangeText={setEmail}
                         placeholder="Enter your email..."
-                        onBlur={(valid) => validateEmail(email)}
+                        onBlur={() => validateEmail(email)}
                         autoCapitalize={false}
                         autoFocus={false}
                     >

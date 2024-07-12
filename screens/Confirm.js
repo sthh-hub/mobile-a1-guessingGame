@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, Button, StyleSheet } from 'react-native';
 
-export default function Confirm({ isModalVisible, name, email, goBackHandler }) {
+export default function Confirm({ isModalVisible, name, email, goBackHandler, continueHandler }) {
 
-    const handleGameStart = () => {
-        console.log('Game is starting...');
+    const handleContinue = () => {
+        continueHandler('Game');
     };
 
     const handleGoBack = () => {
@@ -17,16 +17,17 @@ export default function Confirm({ isModalVisible, name, email, goBackHandler }) 
             <View style={styles.modalBackground}>
                 <View style={styles.modalContainer}>
                     <View style={styles.contentContainer}>
-                        <Text>
-                            Hello {name}{'\n'}
-                            Here is the email that you enterd:{'\n'}
-                            {email}{'\n'}{'\n'}
+                        <Text style={styles.textStyle}>
+                            Hello <Text style={{color: "#483d8b"}}>{name}</Text>!{'\n'}
+                            Here is the email that you entered:{'\n'}
+                            <Text style={{color: "#483d8b"}}>{email}</Text>
+                            {'\n'}{'\n'}
                             If it is not correct, please go back and enter again.
                         </Text>
                     </View>
                     <View style={styles.buttonContainer}>
                         <Button title="Go back" onPress={handleGoBack} color="#C00404" />
-                        <Button title="Continue" onPress={handleGameStart} />
+                        <Button title="Continue" onPress={handleContinue} />
                     </View>
                 </View>
             </View>
@@ -56,6 +57,10 @@ const styles = StyleSheet.create({
     contentContainer: {
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    textStyle: {
+        color: 'DarkGrey',
+        fontSize: 15,
     },
     buttonContainer: {
         flexDirection: 'row',
