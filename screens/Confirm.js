@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, Button, StyleSheet } from 'react-native';
+import colors from '../styles/colors';
 import commonStyles from '../styles/styles';
 
 export default function Confirm({ isModalVisible, name, email, goBackHandler, continueHandler }) {
@@ -28,7 +29,7 @@ export default function Confirm({ isModalVisible, name, email, goBackHandler, co
                         </Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button title="Go back" onPress={handleGoBack} color="#C00404" />
+                        <Button title="Go back" onPress={handleGoBack} color={colors.buttonRed} />
                         <Button title="Continue" onPress={handleContinue} />
                     </View>
                 </View>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import colors from '../styles/colors';
 import commonStyles from '../styles/styles';
 
 
@@ -18,7 +19,7 @@ export default function Start({ nameHandler, emailHandler, startHandler }) {
         const valid = re.test(name);
         if (valid) {
             setName(name);
-        } else if (valid || name === '') {
+        } else if (valid) {
             setNameErrorMsg('');
         } else {
             setNameErrorMsg('Please enter a valid name.');
@@ -32,7 +33,7 @@ export default function Start({ nameHandler, emailHandler, startHandler }) {
         const valid = re.test(email);
         if (valid) {
             setEmail(email);
-        } else if (valid || email === '') {
+        } else if (valid) {
             setMailErrorMsg('');
         } else {
             setMailErrorMsg('Please enter a valid email address.');
@@ -98,7 +99,7 @@ export default function Start({ nameHandler, emailHandler, startHandler }) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <View style={styles.buttonStyle}><Button title="Reset" onPress={resetForm} color="#C00404" /></View>
+                    <View style={styles.buttonStyle}><Button title="Reset" onPress={resetForm} color={colors.buttonRed} /></View>
                     <View style={styles.buttonStyle}><Button title="Start" onPress={handleStart} disabled={isStartDisabled} /></View>
                 </View>
             </View>

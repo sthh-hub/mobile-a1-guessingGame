@@ -5,6 +5,7 @@ import commonStyles from '../../styles/styles';
 import colors from '../../styles/colors';
 
 const GameCard = ({ guess, setGuess, hintMsg, attempt, timer, handleHint, handleGuess }) => {
+    
     return (
         <Card>
             <View style={styles.topContainer}>
