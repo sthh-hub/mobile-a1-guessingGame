@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput, Button, Text } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import commonStyles from '../styles/styles';
 
-export default function Start({ nameHandler, emailHandler, startHandler, resetFormHandler }) {
+
+export default function Start({ nameHandler, emailHandler, startHandler }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [isChecked, setIsChecked] = useState(false)
@@ -46,8 +47,8 @@ export default function Start({ nameHandler, emailHandler, startHandler, resetFo
 
     const resetForm = () => {
         setName('');
-        setNameErrorMsg('');
         setEmail('');
+        setNameErrorMsg('');
         setMailErrorMsg('');
         setIsChecked(false);
         setIsStartDisabled(true);
@@ -58,6 +59,8 @@ export default function Start({ nameHandler, emailHandler, startHandler, resetFo
             nameHandler(name);
             emailHandler(email);
             startHandler(true);
+            setNameErrorMsg('');
+            setMailErrorMsg('');
         }
     };
 

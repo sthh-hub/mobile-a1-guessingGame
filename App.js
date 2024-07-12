@@ -12,7 +12,7 @@ export default function App() {
   const [receivedName, setReceivedName] = useState('');
   const [receivedEmail, setReceivedEmail] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-  const [currentPage, setCurrentPage] = useState('Game');
+  const [currentPage, setCurrentPage] = useState('Start');
 
   // --------handle callback from Start page--------
   function handleNameInput(name) {

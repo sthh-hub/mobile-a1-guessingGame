@@ -55,7 +55,6 @@ export default function Game({ restartHandler }) {
         guessNumber = parseInt(guess, 10);
         if (isNaN(guessNumber) || guessNumber < 1 || guessNumber > 100) {
             Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
-            setGuess('');
             return;
         }
         if (guessNumber === target) {
@@ -149,7 +148,7 @@ export default function Game({ restartHandler }) {
                 <View style={styles.topContainer}>
                     <Text>You guessed correct!</Text>
                     <Text>{winningMsg}</Text>
-                    <Image style={styles.imageStyle} source={{ uri: `https://picsum.photos/id/${guess}/100/100` }} alt="winningImage" />
+                    <Image style={styles.imageStyle} source={{ uri: `https://picsum.photos/id/${target}/100/100` }} alt="winningImage" />
                 </View>
                 <View style={styles.bottomContainer}>
                     <View style={styles.buttonStyle}><Button title="New Game" onPress={handleNewGame} /></View>
