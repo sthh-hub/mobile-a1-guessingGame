@@ -8,6 +8,7 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center',
     },
     card: {
+        width: 280,
         padding: 30,
         margin: 20,
         backgroundColor: colors.boxBackground,
@@ -36,6 +37,22 @@ const commonStyles = StyleSheet.create({
         color: colors.inputText,
         marginBottom: 2,
         marginLeft: 2,
+    },
+    topContainer: {
+        flexDirection: 'column',
+        marginBottom: 5,
+        alignItems: 'center',
+    },
+    topMsgTextStyle: {
+        color: colors.textPrimary,
+        fontSize: 18,
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
+    bottomCardContainer: {
+        alignItems: 'center',
+        flexDirection: 'column',
+        marginBottom: 20,
     },
     buttonContainer: {
         flexDirection: 'row',
