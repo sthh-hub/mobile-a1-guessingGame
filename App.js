@@ -11,8 +11,9 @@ export default function App() {
   const [receivedName, setReceivedName] = useState('');
   const [receivedEmail, setReceivedEmail] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(true);
-  
+  const [currentPage, setCurrentPage] = useState('Start');
 
+  // Callback from Start page
   function handleNameInput(name) {
     setReceivedName(name);
   }
@@ -21,27 +22,50 @@ export default function App() {
     setReceivedEmail(email);
   }
 
-  function handleStart(isModalVisible) {
-    setConfirmModalVisible(isModalVisible);
+  function handleStart() {
+    // Show Confirm modal
+    setConfirmModalVisible(true);
+  }
+
+  // Callback from Confirm page
+  function hanldeGoBack() {
+    setConfirmModalVisible(false);
+  }
+
+  function renderPage(currentPage) {
+    if (currentPage === 'Start') {
+      return (
+        <View>
+          <Start nameHandler={handleNameInput} emailHandler={handleEmailInput} startHandler={handleStart} />
+          <Confirm isModalVisible={confirmModalVisible} name={receivedName} email={receivedEmail} goBackHandler={hanldeGoBack} />
+        </View>
+      );
+    }
+    if (currentPage === 'Game') {
+      return (
+        <View>
+          <Game />
+        </View>
+      );
+    }
   }
 
   return (
     <LinearGradient
-    colors={['#FFD8C1', '#FFB6A1', '#FF7E79']}
-    style={styles.container}
-  >
-    <View style={styles.container}>
-      <View style={styles.topContainer}>
-      <Header />
+      colors={['#FFD8C1', '#FFB6A1', '#FF7E79']}
+      style={styles.container}
+    >
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          <Header />
+        </View>
+        <View style={styles.contentContainer}>
+          {renderPage(currentPage)}
+        </View>
+        <View style={styles.bottomContainer}>
+        </View>
+        <StatusBar style="auto" />
       </View>
-      <View style={styles.contentContainer}>
-      <Start nameHandler={handleNameInput} emailHandler={handleEmailInput} startHandler={handleStart} />
-      <Confirm isModalVisible={confirmModalVisible} name={receivedName} email={receivedEmail} />
-      </View>
-      <View style={styles.bottomContainer}>
-      </View>
-      <StatusBar style="auto" />
-    </View>
     </LinearGradient>
   );
 }

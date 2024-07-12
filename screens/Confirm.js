@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, Button, StyleSheet } from 'react-native';
 
-export default function Confirm({ isModalVisible, name, email }) {
-
-    const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+export default function Confirm({ isModalVisible, name, email, goBackHandler }) {
 
     const handleGameStart = () => {
-
+        console.log('Game is starting...');
     };
 
     const handleGoBack = () => {
@@ -27,7 +25,7 @@ export default function Confirm({ isModalVisible, name, email }) {
                         </Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Button title="Go back" onPress={handleGoBack} />
+                        <Button title="Go back" onPress={handleGoBack} color="#C00404" />
                         <Button title="Continue" onPress={handleGameStart} />
                     </View>
                 </View>
@@ -39,7 +37,7 @@ export default function Confirm({ isModalVisible, name, email }) {
 const styles = StyleSheet.create({
     modalBackground: {
         flex: 1,
-        backgroundColor: 'rgba(50, 50, 50, 0.7)',
+        backgroundColor: 'rgba(50, 50, 50, 0.75)',
         justifyContent: 'center',
         alignItems: 'center',
     },
