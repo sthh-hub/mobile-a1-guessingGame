@@ -200,14 +200,14 @@ const styles = StyleSheet.create({
         ...commonStyles.container,
     },
     restartButtonStyle: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginTop: 60,
-        margin: 10,
+        alignSelf: 'flex-end',
+        marginTop: '30%',
+        marginRight: 25,
     },
     gamePanelContainer: {
         ...commonStyles.card,
         width: 280,
+        marginTop: 10,
     },
     topContainer: {
         flexDirection: 'column',

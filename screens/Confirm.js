@@ -15,7 +15,7 @@ export default function Confirm({ isModalVisible, name, email, goBackHandler, co
 
 
     return (
-        <Modal animationType="slide" visible={isModalVisible} transparent={true}>
+        <Modal animationType="fade" visible={isModalVisible} transparent={true}>
             <View style={styles.modalBackground}>
                 <View style={styles.modalContainer}>
                     <View style={styles.contentContainer}>
