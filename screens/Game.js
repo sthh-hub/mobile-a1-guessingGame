@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
-export default function Game() {
+export default function Game({ restartHandler }) {
     const [target, setTarget] = useState(0);
     const [guess, setGuess] = useState('');
     const [attempt, setAttempt] = useState(4);
@@ -80,8 +80,15 @@ export default function Game() {
         setCurrentCard('gameOver');
     };
 
-    const handleResetGame = () => {
+    const handleNewGame = () => {
         setCurrentCard('game');
+        resetSystemSettings();
+        randomNumber = generateRandomNumber();
+        setTarget(randomNumber);
+    };
+
+    const handleResetGame = () => {
+        restartHandler('Start');
         resetSystemSettings();
         randomNumber = generateRandomNumber();
         setTarget(randomNumber);
@@ -140,7 +147,7 @@ export default function Game() {
                     <Text>{winningMsg}</Text>
                 </View>
                 <View style={styles.bottomContainer}>
-                    <View style={styles.buttonStyle}><Button title="New Game" onPress={handleResetGame} /></View>
+                    <View style={styles.buttonStyle}><Button title="New Game" onPress={handleNewGame} /></View>
                 </View>
             </View>
         );

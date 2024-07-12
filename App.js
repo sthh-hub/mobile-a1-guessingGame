@@ -11,7 +11,7 @@ export default function App() {
   const [receivedName, setReceivedName] = useState('');
   const [receivedEmail, setReceivedEmail] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-  const [currentPage, setCurrentPage] = useState('Game');
+  const [currentPage, setCurrentPage] = useState('Start');
 
   // --------handle callback from Start page--------
   function handleNameInput(name) {
@@ -36,6 +36,11 @@ export default function App() {
     setCurrentPage(gamePage);
   }
 
+  // --------handle callback from Game page--------
+  function handleRestart() {
+    setCurrentPage('Start');
+  }
+
 
   function renderPage(currentPage) {
     if (currentPage === 'Start') {
@@ -49,7 +54,7 @@ export default function App() {
     if (currentPage === 'Game') {
       return (
         <View>
-          <Game />
+          <Game restartHandler={handleRestart}/>
         </View>
       );
     }
