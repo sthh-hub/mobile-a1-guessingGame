@@ -5,6 +5,7 @@ export default function Confirm({ isModalVisible, name, email, goBackHandler, co
 
     const handleContinue = () => {
         continueHandler('Game');
+        goBackHandler(!isModalVisible);
     };
 
     const handleGoBack = () => {

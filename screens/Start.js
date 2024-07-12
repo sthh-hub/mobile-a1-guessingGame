@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-export default function Start({ nameHandler, emailHandler, startHandler }) {
+export default function Start({ nameHandler, emailHandler, startHandler, resetFormHandler }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [isChecked, setIsChecked] = useState(false)
@@ -59,7 +59,6 @@ export default function Start({ nameHandler, emailHandler, startHandler }) {
             startHandler(true);
         }
     };
-
 
     return (
         <View style={styles.startContainer}>

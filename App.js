@@ -34,6 +34,7 @@ export default function App() {
 
   function handleContinue(gamePage) {
     setCurrentPage(gamePage);
+    setConfirmModalVisible(false);
   }
 
   // --------handle callback from Game page--------
@@ -46,15 +47,23 @@ export default function App() {
     if (currentPage === 'Start') {
       return (
         <View>
-          <Start nameHandler={handleNameInput} emailHandler={handleEmailInput} startHandler={handleStart} />
-          <Confirm isModalVisible={confirmModalVisible} name={receivedName} email={receivedEmail} goBackHandler={hanldeGoBack} continueHandler={handleContinue} />
+          <Start
+            nameHandler={handleNameInput}
+            emailHandler={handleEmailInput}
+            startHandler={handleStart} />
+          <Confirm
+            isModalVisible={confirmModalVisible}
+            name={receivedName}
+            email={receivedEmail}
+            goBackHandler={hanldeGoBack}
+            continueHandler={handleContinue} />
         </View>
       );
     }
     if (currentPage === 'Game') {
       return (
         <View>
-          <Game restartHandler={handleRestart}/>
+          <Game restartHandler={handleRestart} />
         </View>
       );
     }
