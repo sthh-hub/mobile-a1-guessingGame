@@ -8,6 +8,7 @@ export default function Game() {
     const [timer, setTimer] = useState(60);
     const [hintMsg, setHintMsg] = useState('');
     const [losingMsg, setLosingMsg] = useState('');
+    const [currentCard, setCurrentCard] = useState('winning');
 
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
 
@@ -27,58 +28,9 @@ export default function Game() {
         }
     };
 
-    const gameContent = () => {
+    const gameCard = () => {
         return (
-            <View style={styles.gameContainer}>
-                <View style={styles.restartButtonStyle}>
-                    <Button title="Restart" onPress={''} />
-                </View>
-                <View style={styles.gamePanelContainer}>
-                    <View style={styles.topContainer}>
-                        <Text style={styles.topMsgTextStyle}>Guess a Number{"\n"}from 1 to 100</Text>
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputStyle}
-                            value={guess}
-                            onChangeText={setGuess}
-                            placeholder="?"
-                            onBlur={() => checkNumber(guess)}
-                            autoCapitalize={false}
-                            autoFocus={true}
-                        >
-                        </ TextInput>
-                    </View>
-                    <View style={styles.bottomContainer}>
-                        <View style={styles.systemMsgContainer}>
-                            <Text style={styles.systemMsgTextStyle}>Attempts left: {attempt}</Text>
-                            <Text style={styles.systemMsgTextStyle}>Timer: {timer}</Text>
-                        </View>
-                        <View style={styles.buttonStyle}><Button title="Use a Hint" onPress={''} color="#ff7f50" /></View>
-                        <View style={styles.buttonStyle}><Button title="Submit Guess" onPress={''} disabled={isSubmitDisabled} /></View>
-                    </View>
-                </View>
-            </View>
-        );
-    };
-
-    const renderContent = () => {
-        if (attempt === 0 || timer === 0) {
-            return (
-                <View>
-                    <Text>The game is over!</Text>
-                    <Text>{losingMsg}</Text>
-                    <View><Button title="New Game" onPress={''} /></View>
-                </View>
-            );
-        }
-    };
-
-    return (
-        <View style={styles.gameContainer}>
-            <View style={styles.restartButtonStyle}>
-                <Button title="Restart" onPress={''} />
-            </View>
-            <View style={styles.gamePanelContainer}>
+            <View>
                 <View style={styles.topContainer}>
                     <Text style={styles.topMsgTextStyle}>Guess a Number{"\n"}from 1 to 100</Text>
                 </View>
@@ -101,6 +53,58 @@ export default function Game() {
                     <View style={styles.buttonStyle}><Button title="Use a Hint" onPress={''} color="#ff7f50" /></View>
                     <View style={styles.buttonStyle}><Button title="Submit Guess" onPress={''} disabled={isSubmitDisabled} /></View>
                 </View>
+            </View>
+        );
+    };
+
+    const losingCard = () => {
+        return (
+            <View>
+                <Text>You did not guess correct!</Text>
+                <View style={styles.buttonStyle}><Button title="Try Again" onPress={''} /></View>
+                <View style={styles.buttonStyle}><Button title="End The Game" onPress={''} /></View>
+            </View>
+        );
+    };
+
+    const winningCard = () => {
+        return (
+            <View>
+                <Text>You guessed correct!</Text>
+                <Text>Attempts used: {attempt}</Text>
+                <View style={styles.buttonStyle}><Button title="New Game" onPress={''} /></View>
+            </View>
+        );
+    };
+
+    const gameOverCard = () => {
+        return (
+            <View>
+                <Text>The game is over!</Text>
+                <Text>sad face here</Text>
+            </View>
+        );
+    };
+
+    const renderCard = (currentCard) => {
+        if (currentCard === 'game') {
+            return gameCard();
+        }
+        if (currentCard === 'losing') {
+            return losingCard();
+        }
+        if (currentCard === 'winning') {
+            return winningCard();
+        }
+    };
+
+    return (
+        <View style={styles.gameContainer}>
+            <View style={styles.restartButtonStyle}>
+                <Button title="Restart" onPress={''} />
+            </View>
+            <View style={styles.gamePanelContainer}>
+                {renderCard(currentCard)}
             </View>
         </View>
     );
