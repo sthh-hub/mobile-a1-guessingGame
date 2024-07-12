@@ -101,7 +101,7 @@ export default function Game({ restartHandler }) {
         return (
             <View>
                 <View style={styles.topContainer}>
-                    <Text style={styles.topMsgTextStyle}>{target}Guess a Number{"\n"}from 1 to 100</Text>
+                    <Text style={styles.topMsgTextStyle}>Guess a Number{"\n"}from 1 to 100</Text>
                 </View>
                 <View style={styles.middleContainer}>
                     <View style={styles.inputContainer}>
