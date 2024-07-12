@@ -21,6 +21,13 @@ export default function Game({ restartHandler }) {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        if (timer === 0) {
+            setLosingMsg("You are out of time");
+            setCurrentCard('gameOver');
+        }
+    }, [timer]);
+
     const generateRandomNumber = () => {
         return Math.floor(Math.random() * 100) + 1;
     }
@@ -57,12 +64,7 @@ export default function Game({ restartHandler }) {
         } else {
             // if the guess is wrong
             setAttempt(attempt - 1);
-            if (timer === 0) {
-                setLosingMsg("You are out of time");
-            } else {
-                setCurrentCard('wrongGuess');
-                setGuess('');
-            }
+            setCurrentCard('wrongGuess');
         }
     };
 
@@ -145,6 +147,7 @@ export default function Game({ restartHandler }) {
                 <View style={styles.topContainer}>
                     <Text>You guessed correct!</Text>
                     <Text>{winningMsg}</Text>
+                    <Image source={{ uri: `https://picsum.photos/id/${guess}/100/100` }} style={styles.resultImage} />
                 </View>
                 <View style={styles.bottomContainer}>
                     <View style={styles.buttonStyle}><Button title="New Game" onPress={handleNewGame} /></View>
@@ -263,5 +266,10 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         margin: 5,
+    },
+    imageStyle: {
+        width: 100,
+        height: 100,
+        marginVertical: 15,
     },
 });
