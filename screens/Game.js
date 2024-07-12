@@ -8,7 +8,7 @@ export default function Game() {
     const [timer, setTimer] = useState(60);
     const [hintMsg, setHintMsg] = useState('');
     const [losingMsg, setLosingMsg] = useState('');
-    const [currentCard, setCurrentCard] = useState('game');
+    const [currentCard, setCurrentCard] = useState('gameOver');
 
     useEffect(() => {
         randomNumber = generateRandomNumber();
@@ -22,6 +22,7 @@ export default function Game() {
     const resetSystemSettings = () => {
         setGuess('');
         setHintMsg('');
+        setLosingMsg('');
         setAttempt(4);
         setTimer(60);
     };
@@ -49,14 +50,34 @@ export default function Game() {
         } else {
             // if the guess is wrong
             setAttempt(attempt - 1);
-            if (attempt === 0) {
-                setCurrentCard('gameOver');
-                resetSystemSettings();
+            if (timer === 0) {
+                setLosingMsg("You are out of time");
             } else {
                 setCurrentCard('wrongGuess');
                 setGuess('');
             }
         }
+    };
+
+    const handleTryAgain = () => {
+        if (attempt === 0) {
+            setCurrentCard('gameOver');
+            resetSystemSettings();
+            setLosingMsg("You are out of attempts");
+        } else {
+            setCurrentCard('game');
+        }
+    };
+
+    const handleEndGame = () => {
+        setCurrentCard('gameOver');
+    };
+
+    const handleResetGame = () => {
+        setCurrentCard('game');
+        resetSystemSettings();
+        randomNumber = generateRandomNumber();
+        setTarget(randomNumber);
     };
 
     const gameCard = () => {
@@ -97,8 +118,8 @@ export default function Game() {
                     <Text>You did not guess correct!</Text>
                 </View>
                 <View style={styles.bottomContainer}>
-                    <View style={styles.buttonStyle}><Button title="Try Again" onPress={''} /></View>
-                    <View style={styles.buttonStyle}><Button title="End The Game" onPress={''} /></View>
+                    <View style={styles.buttonStyle}><Button title="Try Again" onPress={handleTryAgain} /></View>
+                    <View style={styles.buttonStyle}><Button title="End The Game" onPress={handleEndGame} /></View>
                 </View>
             </View>
         );
@@ -112,7 +133,7 @@ export default function Game() {
                     <Text>Attempts used: {attempt}</Text>
                 </View>
                 <View style={styles.bottomContainer}>
-                    <View style={styles.buttonStyle}><Button title="New Game" onPress={''} /></View>
+                    <View style={styles.buttonStyle}><Button title="New Game" onPress={handleResetGame} /></View>
                 </View>
             </View>
         );
@@ -123,6 +144,7 @@ export default function Game() {
             <View style={styles.topContainer}>
                 <Text>The game is over!</Text>
                 <Text>sad face here</Text>
+                <Text>{losingMsg}</Text>
             </View>
         );
     };
@@ -137,12 +159,15 @@ export default function Game() {
         if (currentCard === 'winning') {
             return winningCard();
         }
+        if (currentCard === 'gameOver') {
+            return gameOverCard();
+        }
     };
 
     return (
         <View style={styles.gameContainer}>
             <View style={styles.restartButtonStyle}>
-                <Button title="Restart" onPress={''} />
+                <Button title="Restart" onPress={handleResetGame} />
             </View>
             <View style={styles.gamePanelContainer}>
                 {renderCard(currentCard)}
@@ -176,6 +201,7 @@ const styles = StyleSheet.create({
     topContainer: {
         flexDirection: 'column',
         marginBottom: 5,
+        alignItems: 'center',
     },
     topMsgTextStyle: {
         color: '#483d8b',
