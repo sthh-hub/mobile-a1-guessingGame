@@ -9,11 +9,16 @@ export default function Game() {
     const [hintMsg, setHintMsg] = useState('');
     const [losingMsg, setLosingMsg] = useState('');
     const [winningMsg, setWinningMsg] = useState('');
-    const [currentCard, setCurrentCard] = useState('gameOver');
+    const [currentCard, setCurrentCard] = useState('game');
 
     useEffect(() => {
-        randomNumber = generateRandomNumber();
+        const randomNumber = generateRandomNumber();
         setTarget(randomNumber);
+        const interval = setInterval(() => {
+            setTimer((prev) => (prev > 0 ? prev - 1 : 0));
+        }, 1000);
+    
+        return () => clearInterval(interval);
     }, []);
 
     const generateRandomNumber = () => {
@@ -214,6 +219,7 @@ const styles = StyleSheet.create({
     hintTextStyle: {
         color: '#ff7f50',
         textAlign: 'center',
+        fontWeight: 'bold',
     },
     middleContainer: {
         alignItems: 'center',
