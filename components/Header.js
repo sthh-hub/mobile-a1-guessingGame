@@ -4,7 +4,7 @@ import React from "react";
 const Header = ( {children} ) => {
     return (
         <View>
-            <Text style={styles.headerStyle}>Welcome</Text>
+            <Text style={styles.headerStyle}>Number Guessing</Text>
             {children}
         </View>
     );
@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
     headerStyle: {
         color: '#C00404',
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 23,
     },
 });

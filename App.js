@@ -8,6 +8,14 @@ import Start from './screens/Start';
 // import Confirm from './screens/Confirm';
 
 export default function App() {
+  const [receivedName, setReceivedName] = useState('');
+  // const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  
+
+  function handleNameInput(name) {
+    setReceivedName(name);
+    // setConfirmModalVisible(true);
+  }
 
   return (
     <LinearGradient
@@ -16,10 +24,10 @@ export default function App() {
   >
     <View style={styles.container}>
       <View style={styles.topContainer}>
-      <Header></Header>
+      <Header />
       </View>
       <View style={styles.contentContainer}>
-      <Start></Start>
+      <Start nameHandler={handleNameInput} />
       </View>
       <View style={styles.bottomContainer}>
       </View>
@@ -41,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: '20%',
     marginTop: '10%',
-    paddingBottom: 30,
+    paddingBottom: '15%',
     alignItems: 'center',
   },
   contentContainer: {
@@ -53,22 +61,5 @@ const styles = StyleSheet.create({
     flex: 3,
     alignItems: 'center',
     justifyContent: 'flex-start',
-  },
-  textContainer: {
-    backgroundColor: '#ffff00',
-    padding: 5,
-    borderRadius: 5,
-  },
-  textSytle: {
-    fontSize: 25,
-    margin: 10,
-  },
-  buttonStyle: {
-    width: '30%',
-    fontSize: 12,
-    backgroundColor: 'lightblue',
-    color: 'white',
-    borderRadius: 5,
-    margin: 5,
   },
 });

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-export default function Start() {
+export default function Start({ nameHandler }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [isChecked, setIsChecked] = useState(false)
@@ -14,18 +14,23 @@ export default function Start() {
         // name length need to >= 2 and have to be characters only
         const re = /^[a-zA-Z]{2,}$/;
         const valid = re.test(name);
-        if (valid || name === '') {
+        if (valid) {
+            setName(name);
+        } else if (valid || name === '') {
             setNameErrorMsg('');
         } else {
             setNameErrorMsg('Please enter a valid name.');
         }
         return valid;
     };
+
     const validateEmail = (email) => {
         // ^[A-Z0-9+_.-]+@[A-Z0-9.-]+$
         const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z0-9.-]+$/i;
         const valid = re.test(email);
-        if (valid || email === '') {
+        if (valid) {
+            setEmail(email);
+        } else if (valid || email === '') {
             setMailErrorMsg('');
         } else {
             setMailErrorMsg('Please enter a valid email address.');
@@ -48,10 +53,8 @@ export default function Start() {
     };
 
     const handleStart = () => {
-        if (validateName(name) && validateEmail(email) && isChecked) {
-            alert('Welcome ' + name + '!');
-        } else {
-            alert('Please fill in the form correctly.');
+        if (validateName(name) && validateEmail(email)) {
+            nameHandler(name);
         }
     };
 
@@ -88,7 +91,7 @@ export default function Start() {
                     <Text style={{ marginTop: 3 }}>I'm not a robot.</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <View style={styles.buttonStyle}><Button title="Reset" onPress={resetForm} /></View>
+                    <View style={styles.buttonStyle}><Button title="Reset" onPress={resetForm} color="#C00404" /></View>
                     <View style={styles.buttonStyle}><Button title="Start" onPress={handleStart} disabled={isStartDisabled} /></View>
                 </View>
             </View>
@@ -107,9 +110,12 @@ const styles = StyleSheet.create({
         padding: 30,
         margin: 20,
         backgroundColor: '#C0E4E4',
-        borderRadius: 5,
+        borderRadius: 15,
         shadowColor: 'black',
-        shadowOffset: { width: 10, height: 10 },
+        shadowOffset: { width: 5, height: 10 },
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        elevation: 10,
     },
     inputContainer: {
         marginTop: 10,
@@ -134,10 +140,11 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 15,
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 10
     },
     buttonStyle: {
-        borderRadius: 5,
-        padding: 10,
+        margin: 15,
     },
 });
