@@ -57,7 +57,6 @@ export default function Game({ restartHandler }) {
             // if the guess is correct
             setWinningMsg(`Attempts used: ${4 - attempt + 1}`);
             setCurrentCard('winning');
-            resetSystemSettings();
         } else {
             // if the guess is wrong
             setAttempt(attempt - 1);
@@ -95,9 +94,6 @@ export default function Game({ restartHandler }) {
     // --------invoke restartHandler, pass back to App.js-------- 
     const handleResetGame = () => {
         restartHandler('Start');
-        resetSystemSettings();
-        const randomNumber = generateRandomNumber();
-        setTarget(randomNumber);
     };
 
     const renderCard = (currentCard) => {
