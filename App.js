@@ -15,7 +15,7 @@ export default function App() {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState('Start');
 
-  // --------handle callback from Start page--------
+  // --------handle callback value from Start page--------
   function handleNameInput(name) {
     setReceivedName(name);
   }
@@ -29,7 +29,7 @@ export default function App() {
     setConfirmModalVisible(true);
   }
 
-  // --------handle callback from Confirm page--------
+  // --------handle callback value from Confirm page--------
   function hanldeGoBack() {
     setConfirmModalVisible(false);
   }
@@ -39,7 +39,7 @@ export default function App() {
     setConfirmModalVisible(false);
   }
 
-  // --------handle callback from Game page--------
+  // --------handle callback value from Game page--------
   function handleRestart() {
     setCurrentPage('Start');
   }

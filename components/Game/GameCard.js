@@ -4,10 +4,11 @@ import Card from '../Card';
 import commonStyles from '../../styles/styles';
 import colors from '../../styles/colors';
 
-const GameCard = ({ target, guess, setGuess, hintCount, attempt, timer, hintCountHandler, guessHandler }) => {
+const GameCard = ({ target, hintCount, attempt, timer, hintCountHandler, guessHandler }) => {
 
     const [isHintDisabled, setIsHintDisabled] = useState(false);
     const [hintMsg, setHintMsg] = useState('');
+    const [guess, setGuess] = useState('');
 
     useEffect(() => {
         if (hintCount === 0) { setIsHintDisabled(true); }

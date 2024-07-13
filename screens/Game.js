@@ -8,7 +8,6 @@ import GameOverCard from '../components/Game/GameOverCard';
 
 export default function Game({ restartHandler }) {
     const [target, setTarget] = useState(0);
-    const [guess, setGuess] = useState('');
     const [attempt, setAttempt] = useState(4);
     const [timer, setTimer] = useState(60);
     const [hintCount, setHintCount] = useState(1);
@@ -16,6 +15,7 @@ export default function Game({ restartHandler }) {
     const [winningMsg, setWinningMsg] = useState('');
     const [currentCard, setCurrentCard] = useState('game');
 
+    // --------handle system setting--------
     useEffect(() => {
         const randomNumber = generateRandomNumber();
         setTarget(randomNumber);
@@ -34,22 +34,25 @@ export default function Game({ restartHandler }) {
     }, [timer]);
 
     const generateRandomNumber = () => {
-        return Math.floor(Math.random() * 100) + 1;
+        randomNumber = Math.floor(Math.random() * 100) + 1;
+        console.log('The target number is', randomNumber);
+        return randomNumber;
     }
 
     const resetSystemSettings = () => {
-        setGuess('');
         setHintCount(1);
         setLosingMsg('');
         setAttempt(4);
         setTimer(60);
     };
 
+    // --------handle callback value from GameCard--------
     const handleHint = (hintCount) => {
         setHintCount(hintCount);
     };
 
     const handleGuess = (guess) => {
+        console.log('User guessed', guess);
         if (guess === target) {
             // if the guess is correct
             setWinningMsg(`Attempts used: ${4 - attempt + 1}`);
@@ -62,20 +65,26 @@ export default function Game({ restartHandler }) {
         }
     };
 
-    const handleTryAgain = () => {
-        if (attempt === 0) {
-            setCurrentCard('gameOver');
-            resetSystemSettings();
-            setLosingMsg("You are out of attempts");
-        } else {
-            setCurrentCard('game');
+    // --------handle callback value from WrongGuessCard--------  
+    const handleTryAgain = (tryAgain) => {
+        if (tryAgain) {
+            if (attempt === 0) {
+                setCurrentCard('gameOver');
+                resetSystemSettings();
+                setLosingMsg("You are out of attempts");
+            } else {
+                setCurrentCard('game');
+            }
         }
     };
 
-    const handleEndGame = () => {
-        setCurrentCard('gameOver');
+    const handleEndGame = (EndAgain) => {
+        if (EndAgain) {
+            setCurrentCard('gameOver');
+        }
     };
 
+    // --------handle callback value from WinningCard-------- 
     const handleNewGame = () => {
         setCurrentCard('game');
         resetSystemSettings();
@@ -83,6 +92,7 @@ export default function Game({ restartHandler }) {
         setTarget(randomNumber);
     };
 
+    // --------invoke restartHandler, pass back to App.js-------- 
     const handleResetGame = () => {
         restartHandler('Start');
         resetSystemSettings();
@@ -95,8 +105,6 @@ export default function Game({ restartHandler }) {
             return (
                 <GameCard
                     target={target}
-                    guess={guess}
-                    setGuess={setGuess}
                     hintCount={hintCount}
                     hintCountHandler={handleHint}
                     attempt={attempt}
@@ -108,8 +116,8 @@ export default function Game({ restartHandler }) {
         if (currentCard === 'wrongGuess') {
             return (
                 <WrongGuessCard
-                    handleTryAgain={handleTryAgain}
-                    handleEndGame={handleEndGame}
+                    tryAgainHandler={handleTryAgain}
+                    endGameHandler={handleEndGame}
                 />
             );
         }
@@ -118,7 +126,7 @@ export default function Game({ restartHandler }) {
                 <WinningCard
                     winningMsg={winningMsg}
                     target={target}
-                    handleNewGame={handleNewGame}
+                    newGameHandler={handleNewGame}
                 />
             );
         }

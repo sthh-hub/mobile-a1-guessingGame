@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import Card from '../Card';  
 import commonStyles from '../../styles/styles';
 
-const WinningCard = ({ winningMsg, target, handleNewGame }) => {
+const WinningCard = ({ winningMsg, target, newGameHandler }) => {
+
+    const handleNewGame = () => {
+        newGameHandler(true);
+    };
+
     return (
         <Card>
             <View style={styles.topContainer}>

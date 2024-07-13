@@ -3,7 +3,16 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import Card from '../Card';  
 import commonStyles from '../../styles/styles';
 
-const WrongGuessCard = ({ handleTryAgain, handleEndGame }) => {
+const WrongGuessCard = ({ tryAgainHandler, endGameHandler }) => {
+
+    const handleTryAgain = () => {
+        tryAgainHandler(true);
+    };
+
+    const handleEndGame = () => {
+        endGameHandler(true);
+    };
+
     return (
         <Card>
             <View style={styles.topContainer}>
@@ -27,6 +36,7 @@ const styles = StyleSheet.create({
     },
     bottomCardContainer: {
         ...commonStyles.bottomCardContainer,
+        height: 80,
     },
     buttonStyle: {
         ...commonStyles.button,
