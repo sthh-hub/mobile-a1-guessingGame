@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, StyleSheet, Alert } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import commonStyles from '../styles/styles';
 import GameCard from '../components/Game/GameCard';
 import WinningCard from '../components/Game/WinningCard';
@@ -11,7 +11,7 @@ export default function Game({ restartHandler }) {
     const [guess, setGuess] = useState('');
     const [attempt, setAttempt] = useState(4);
     const [timer, setTimer] = useState(60);
-    const [hintMsg, setHintMsg] = useState('');
+    const [hintCount, setHintCount] = useState(1);
     const [losingMsg, setLosingMsg] = useState('');
     const [winningMsg, setWinningMsg] = useState('');
     const [currentCard, setCurrentCard] = useState('game');
@@ -27,7 +27,7 @@ export default function Game({ restartHandler }) {
     }, []);
 
     useEffect(() => {
-        if (timer === 0 && currentCard != 'winning') {
+        if (timer === 0 && currentCard != 'winning' && currentCard != 'gameOver') {
             setLosingMsg("You are out of time");
             setCurrentCard('gameOver');
         }
@@ -39,23 +39,18 @@ export default function Game({ restartHandler }) {
 
     const resetSystemSettings = () => {
         setGuess('');
-        setHintMsg('');
+        setHintCount(1);
         setLosingMsg('');
         setAttempt(4);
         setTimer(60);
     };
 
-    const handleHint = (hintMsg) => {
-        setHintMsg(hintMsg);
+    const handleHint = (hintCount) => {
+        setHintCount(hintCount);
     };
 
     const handleGuess = (guess) => {
-        const guessNumber = parseInt(guess, 10);
-        if (isNaN(guessNumber) || guessNumber < 1 || guessNumber > 100) {
-            Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
-            return;
-        }
-        if (guessNumber === target) {
+        if (guess === target) {
             // if the guess is correct
             setWinningMsg(`Attempts used: ${4 - attempt + 1}`);
             setCurrentCard('winning');
@@ -102,11 +97,11 @@ export default function Game({ restartHandler }) {
                     target={target}
                     guess={guess}
                     setGuess={setGuess}
-                    hintMsg={hintMsg}
+                    hintCount={hintCount}
+                    hintCountHandler={handleHint}
                     attempt={attempt}
                     timer={timer}
-                    hintHandler={handleHint}
-                    handleGuess={handleGuess}
+                    guessHandler={handleGuess}
                 />
             );
         }

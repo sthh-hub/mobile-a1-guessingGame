@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import Card from '../Card';
 import commonStyles from '../../styles/styles';
 import colors from '../../styles/colors';
 
-const GameCard = ({ target, guess, setGuess, hintMsg, attempt, timer, hintHandler, handleGuess }) => {
+const GameCard = ({ target, guess, setGuess, hintCount, attempt, timer, hintCountHandler, guessHandler }) => {
 
     const [isHintDisabled, setIsHintDisabled] = useState(false);
-    const [hintCount, setHintCount] = useState(1);
+    const [hintMsg, setHintMsg] = useState('');
+
+    useEffect(() => {
+        if (hintCount === 0) { setIsHintDisabled(true); }
+    });
 
     const handleHint = () => {
-        setHintCount(hintCount - 1);
+        hintCountHandler(hintCount - 1);
         setIsHintDisabled(true);
-
         const evenOrOdd = target % 2 === 0 ? 'Even' : 'Odd';
         if (target > 50) {
-            hintHandler(`${evenOrOdd} number & from 51 to 100`);
+            setHintMsg(`${evenOrOdd} number & from 51 to 100`);
         } else {
-            hintHandler(`${evenOrOdd} number & from 1 to 50`);
+            setHintMsg(`${evenOrOdd} number & from 1 to 50`);
         }
     };
+
+    const handleGuess = (guess) => {
+        const guessNumber = parseInt(guess, 10);
+        if (isNaN(guessNumber) || guessNumber < 1 || guessNumber > 100) {
+            Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
+            return;
+        }
+        guessHandler(guessNumber);
+    };
+
 
     return (
         <Card>
