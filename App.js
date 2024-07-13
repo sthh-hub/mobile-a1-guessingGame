@@ -76,8 +76,8 @@ export default function App() {
       colors={['#FFD8C1', '#FFB6A1', '#FF7E79']}
       style={styles.container}
     >
-      <View style={styles.container}>
-        <DismissKeyboard>
+      <DismissKeyboard>
+        <View style={styles.container}>
           <View style={styles.topContainer}>
             <Header />
           </View>
@@ -86,11 +86,10 @@ export default function App() {
           </View>
           <View style={styles.bottomContainer}>
           </View>
-        </DismissKeyboard>
-        <StatusBar style="auto" />
-      </View>
+          <StatusBar style="auto" />
+        </View>
+      </DismissKeyboard>
     </LinearGradient>
-
   );
 }
 

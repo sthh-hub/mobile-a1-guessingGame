@@ -22,7 +22,7 @@ export default function Game({ restartHandler }) {
         const interval = setInterval(() => {
             setTimer((prev) => (prev > 0 ? prev - 1 : 0));
         }, 1000);
-    
+
         return () => clearInterval(interval);
     }, []);
 
@@ -45,13 +45,8 @@ export default function Game({ restartHandler }) {
         setTimer(60);
     };
 
-    const handleHint = () => {
-        const evenOrOdd = target % 2 === 0 ? 'Even' : 'Odd';
-        if (target > 50) {
-            setHintMsg(`${evenOrOdd} number & from 51 to 100`);
-        } else {
-            setHintMsg(`${evenOrOdd} number & from 1 to 50`);
-        }
+    const handleHint = (hintMsg) => {
+        setHintMsg(hintMsg);
     };
 
     const handleGuess = (guess) => {
@@ -103,38 +98,39 @@ export default function Game({ restartHandler }) {
     const renderCard = (currentCard) => {
         if (currentCard === 'game') {
             return (
-                <GameCard 
-                    guess={guess} 
-                    setGuess={setGuess} 
-                    hintMsg={hintMsg} 
-                    attempt={attempt} 
-                    timer={timer} 
-                    handleHint={handleHint} 
-                    handleGuess={handleGuess} 
+                <GameCard
+                    target={target}
+                    guess={guess}
+                    setGuess={setGuess}
+                    hintMsg={hintMsg}
+                    attempt={attempt}
+                    timer={timer}
+                    hintHandler={handleHint}
+                    handleGuess={handleGuess}
                 />
             );
         }
         if (currentCard === 'wrongGuess') {
             return (
-                <WrongGuessCard 
-                    handleTryAgain={handleTryAgain} 
-                    handleEndGame={handleEndGame} 
+                <WrongGuessCard
+                    handleTryAgain={handleTryAgain}
+                    handleEndGame={handleEndGame}
                 />
             );
         }
         if (currentCard === 'winning') {
             return (
-                <WinningCard 
-                    winningMsg={winningMsg} 
-                    target={target} 
-                    handleNewGame={handleNewGame} 
+                <WinningCard
+                    winningMsg={winningMsg}
+                    target={target}
+                    handleNewGame={handleNewGame}
                 />
             );
         }
         if (currentCard === 'gameOver') {
             return (
-                <GameOverCard 
-                    losingMsg={losingMsg} 
+                <GameOverCard
+                    losingMsg={losingMsg}
                 />
             );
         }

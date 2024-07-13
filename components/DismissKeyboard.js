@@ -1,12 +1,16 @@
 import React from 'react';
-import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Keyboard } from 'react-native';
 
 const DismissKeyboard = ({ children }) => (
-  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-    <View>
-      {children}
-    </View>
-  </TouchableWithoutFeedback>
+  <View
+    style={{ flex: 1 }}
+    onStartShouldSetResponder={() => {
+      Keyboard.dismiss();
+      return false;
+    }}
+  >
+    {children}
+  </View>
 );
 
 export default DismissKeyboard;

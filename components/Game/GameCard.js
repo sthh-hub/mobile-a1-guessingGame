@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import Card from '../Card';  
+import Card from '../Card';
 import commonStyles from '../../styles/styles';
 import colors from '../../styles/colors';
 
-const GameCard = ({ guess, setGuess, hintMsg, attempt, timer, handleHint, handleGuess }) => {
-    
+const GameCard = ({ target, guess, setGuess, hintMsg, attempt, timer, hintHandler, handleGuess }) => {
+
+    const [isHintDisabled, setIsHintDisabled] = useState(false);
+    const [hintCount, setHintCount] = useState(1);
+
+    const handleHint = () => {
+        setHintCount(hintCount - 1);
+        setIsHintDisabled(true);
+
+        const evenOrOdd = target % 2 === 0 ? 'Even' : 'Odd';
+        if (target > 50) {
+            hintHandler(`${evenOrOdd} number & from 51 to 100`);
+        } else {
+            hintHandler(`${evenOrOdd} number & from 1 to 50`);
+        }
+    };
+
     return (
         <Card>
             <View style={styles.topContainer}>
@@ -28,7 +43,7 @@ const GameCard = ({ guess, setGuess, hintMsg, attempt, timer, handleHint, handle
                 </View>
             </View>
             <View style={styles.bottomContainer}>
-                <View style={styles.buttonStyle}><Button title="Use a Hint" onPress={handleHint} color="#ff7f50" /></View>
+                <View style={styles.buttonStyle}><Button title={`${hintCount} Hint`} onPress={handleHint} color="#ff7f50" disabled={isHintDisabled} /></View>
                 <View style={styles.buttonStyle}><Button title="Submit Guess" onPress={() => { handleGuess(guess); }} /></View>
             </View>
         </Card>
