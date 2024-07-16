@@ -1,12 +1,11 @@
 import { StyleSheet, View, Text } from "react-native";
 import React from "react";
+import commonStyles from '../styles/styles';
 
-const Header = ({ children, name }) => {
-    console.log(name);
-
+const Header = ( {children} ) => {
     return (
-        <View style={styles.headerStyle}>
-            <Text>Welcome to {name}</Text>
+        <View>
+            <Text style={styles.headerStyle}>Number Guessing</Text>
             {children}
         </View>
     );
@@ -16,11 +15,6 @@ export default Header;
 
 const styles = StyleSheet.create({
     headerStyle: {
-        borderWidth: 2,
-        borderColor: 'purple',
-        borderRadius: 5,
-        fontSize: 30,
-        color: 'purple',
-        padding: 5,
+        ...commonStyles.headerText,
     },
 });

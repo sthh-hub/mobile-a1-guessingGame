@@ -1,52 +1,118 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+import DismissKeyboard from './components/DismissKeyboard';
+import Header from './components/Header';
 import Start from './screens/Start';
-import Game from './screens/Game';
 import Confirm from './screens/Confirm';
-import Header from "./components/Header";
-import Input from "./components/Input";
-import GoalItem from "./Components/GoalItem";
+import Game from './screens/Game';
+import commonStyles from './styles/styles';
 
 export default function App() {
+  const [receivedName, setReceivedName] = useState('');
+  const [receivedEmail, setReceivedEmail] = useState('');
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState('Start');
+
+  // --------handle callback value from Start page--------
+  function handleNameInput(name) {
+    setReceivedName(name);
+  }
+
+  function handleEmailInput(email) {
+    setReceivedEmail(email);
+  }
+
+  function handleStart() {
+    // Show Confirm modal
+    setConfirmModalVisible(true);
+  }
+
+  // --------handle callback value from Confirm page--------
+  function hanldeGoBack() {
+    setConfirmModalVisible(false);
+  }
+
+  function handleContinue(gamePage) {
+    setCurrentPage(gamePage);
+    setConfirmModalVisible(false);
+  }
+
+  // --------handle callback value from Game page--------
+  function handleRestart() {
+    setCurrentPage('Start');
+  }
+
+
+  function renderPage(currentPage) {
+    if (currentPage === 'Start') {
+      return (
+        <View>
+          <Start
+            nameHandler={handleNameInput}
+            emailHandler={handleEmailInput}
+            startHandler={handleStart} />
+          <Confirm
+            isModalVisible={confirmModalVisible}
+            name={receivedName}
+            email={receivedEmail}
+            goBackHandler={hanldeGoBack}
+            continueHandler={handleContinue} />
+        </View>
+      );
+    }
+    if (currentPage === 'Game') {
+      return (
+        <View>
+          <Game restartHandler={handleRestart} />
+        </View>
+      );
+    }
+  }
 
   return (
+    <LinearGradient
+      colors={['#FFD8C1', '#FFB6A1', '#FF7E79']}
+      style={styles.container}
+    >
+      <DismissKeyboard>
+        <View style={styles.container}>
+          <View style={styles.topContainer}>
+            <Header />
+          </View>
+          <View style={styles.contentContainer}>
+            {renderPage(currentPage)}
+          </View>
+          <View style={styles.bottomContainer}>
+          </View>
+          <StatusBar style="auto" />
+        </View>
+      </DismissKeyboard>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textContainer: {
-    backgroundColor: '#ffff00',
-    padding: 5,
-    borderRadius: 5,
-  },
-  textSytle: {
-    fontSize: 25,
-    margin: 10,
-  },
-  buttonStyle: {
-    width: '30%',
-    fontSize: 12,
-    backgroundColor: 'lightblue',
-    color: 'white',
-    borderRadius: 5,
-    margin: 5,
+    ...commonStyles.container,
+    backgroundColor: 'gradient',
   },
   topContainer: {
     flex: 1,
-    marginTop: 70,
-    alignItems: 'center'
+    paddingTop: '20%',
+    marginTop: '10%',
+    paddingBottom: '15%',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   bottomContainer: {
-    flex: 5,
-    backgroundColor: 'lightyellow',
-    width: '100%',
-    alignItems: 'center'
-  }
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
 });
